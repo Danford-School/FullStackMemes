@@ -17,33 +17,3 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => console.log('App listening on port 3000')); 
- /* Http.onreadystatechange = function () {
-    var status = Http.status;
-    if (status == 200) {
-      callback(null, Http.response);
-    } else {
-      callback(status);
-    }
-  };
-  Http.send();
-};
-
-getdata(url, function (err, data) {
-  if (err != null) {
-    console.log("Error"); 
-  } else {
-    for (i = 0; i < data.length; i++) {
-        var title = data[i].name;
-        console.log(title); 
-        var text = (i+1) + ". " + id + ": " + title; 
-        var res = document.getElementById("results"); 
-        const li = document.createElement("ol"); 
-        li.innerHTML = text; 
-        res.append(li);        
-    }
-  }
-
-  console.log(data.message)
-})
-
-*/
