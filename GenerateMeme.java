@@ -23,8 +23,9 @@ public class GenerateMeme {
     }
     //this creates the string for the post. We can add font, font size, and box location if desired.
     //change void to string when we have something to send it to
-    public static void PostBuilder(String id, String topText, String bottomText) throws IOException, InterruptedException {
+    public static String PostBuilder(String id, String topText, String bottomText) throws IOException, InterruptedException {
         Credentials cred = new Credentials();
+        HttpResponse<String> postMe;
         try {
 
             var myurl = new URL(url);
@@ -47,7 +48,7 @@ public class GenerateMeme {
                     .uri(URI.create(realURL))
                     .build();
 
-            HttpResponse<String> postMe = HttpClient.newHttpClient().send(sendMe, HttpResponse.BodyHandlers.ofString());
+            postMe = HttpClient.newHttpClient().send(sendMe, HttpResponse.BodyHandlers.ofString());
             //error checking
             System.out.println(postMe.statusCode());
 
@@ -56,6 +57,7 @@ public class GenerateMeme {
         } finally {
             con.disconnect();
         }
+        return postMe.body();
     }
 // not sure how to do this yet
     public static void searchMemes(String searchString) {

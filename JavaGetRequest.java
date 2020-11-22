@@ -5,9 +5,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class JavaGetRequest {
-    private static HttpURLConnection con;
 
+
+    // use main for testing I guess
     public static void main(String[] args) throws IOException {
+    }
+
+    public static String GetMemes() throws IOException {
+        //we need these
+        HttpURLConnection con = null;
+        StringBuilder stuff;
 
         var url = "https://api.imgflip.com/get_memes";
 
@@ -18,8 +25,6 @@ public class JavaGetRequest {
             con = (HttpURLConnection) myurl.openConnection();
 
             con.setRequestMethod("GET");
-
-            StringBuilder stuff;
 
             //this should get output from the api
             try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
@@ -34,7 +39,9 @@ public class JavaGetRequest {
             //this is for a test, should be replaced with a function that gives urls to display
             System.out.println((stuff.toString()));
         } finally {
+            assert con != null;
             con.disconnect();
         }
+        return stuff.toString();
     }
 }
