@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -78,4 +80,5 @@ public class GenerateMeme {
         System.out.println(builder);
         return builder.toString();
     }
+
 }
