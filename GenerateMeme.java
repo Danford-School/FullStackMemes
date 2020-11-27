@@ -21,7 +21,7 @@ public class GenerateMeme {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //this is a test
-        PostBuilder("61579", "One does not simply", "make a meme program for fun");
+        //PostBuilder("61579", "One does not simply", "make a meme program for fun");
     }
     //this creates the string for the post. We can add font, font size, and box location if desired.
     //change void to string when we have something to send it to
@@ -61,7 +61,7 @@ public class GenerateMeme {
         }
         return postMe.body();
     }
-// not sure how to do this yet
+// not sure how to do this yet I think it will be easier with javascript
     public static void searchMemes(String searchString) {
 
     }
