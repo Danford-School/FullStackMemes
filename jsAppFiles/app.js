@@ -8,6 +8,7 @@ const fs = require('fs');
 const port = 3000; 
 const app = express();
 const url = "http://alpha-meme-maker.herokuapp.com/1"; 
+const request = require('request'); 
 
 
 app.get('/', (req, res) => {
@@ -42,3 +43,24 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => console.log('App listening on port 3000'));
+
+//when fed a search term and the array of names with urls, this should send back an array of names and urls that match
+var searchMemes = function (theData, searchParameter) { 
+  var results;   
+  for(var i = 0; i < theData.length; i++) { 
+    if(theData[i]['name'].includes(searchParameter) ) { 
+        results.push(theData[i]); 
+    }
+  }
+  return results; 
+}
+
+//when fed the path of a specific image (with path) this will download said image to your computer. 
+const download = (url, path, callback) => { 
+  request.head(url, (err, res, body) => {
+    request(url) 
+      .pipe(fs.createWriteStream(path))
+      .on('close', callback)
+  })
+}
+
