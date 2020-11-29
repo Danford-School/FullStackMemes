@@ -2,7 +2,7 @@
 //Authors: Stephanie Beagle and Danford Compton 
 
 const express = require('express'); 
-const requestHandler = require('../jsAppFiles/requestHandler');
+const requestHandler = require('./requestHandler');
 const request = require('request');
 const fs = require('fs'); 
 //const port = 3000; 
@@ -25,42 +25,37 @@ function invokeJavaGet() {
   // to be continued here 
 }
 
-// Server code, wasn't sure if we need it. 
-/*
 app.get('/', (req, res) => {
   requestHandler.make_API_call(url) //see requestHandler.js 
   .then(response => {
   // res.json(response); // this prints the raw json data to the browser if you need that for testing 
    var length = response.data.length; //24
-   var html = '<!DOCTYPE html><html><head><meta charset="utf-8"/></head><body><table class = "grid" id = "table"><tr>'; //head of html file
-   for(var i = 0; i < length; i++) {
-     if(i%5 === 0 && i!=0){
-       html += '</tr><tr>'; 
-     }
-     html += '<td class = "meme_box"><img src="' + response.data[i].image + '"></td>';
-   }
-   //console.log(html); 
-   html += '</tr>'; 
-   html += '</table>'; 
-   html += '</body></html>';
-   //write html to the homepage.html file, it will overwrite the previous html on each run
-   fs.writeFile(path.join(__dirname + '/homepage.html'), html, err => {
-    if(err) {
-      console.error(err);
-      return; 
-    }
-  }); 
-  //this is supposed to serve the html page in the browser but I can't seem to make it work just yet
-  res.sendFile(path.join(__dirname +'/homepage.html'));
-  })
-  .catch(error => {
-    res.send(error)
-  })
+   writeHtml (length, response.data); 
 })
 
 app.listen(port, () => console.log('App listening on port 3000'));
-*/
 
+// takes the array of data from the JSON body & the length of the array as arguments
+// and writes homepage.html with the corresponding data  
+function writeHTML (length, data) {
+  var html = '<!DOCTYPE html><html><head><meta charset="utf-8"/></head><body><table class = "grid" id = "table"><tr>'; //head of html file
+  for(var i = 0; i < length; i++) {
+    if(i%5 === 0 && i!=0){ // Makes a row of 5, replace 5 with anything you want 
+      html += '</tr><tr>'; 
+    }
+    html += '<td class = "meme_box"><img src="' + data[i].image + '"></td>';
+  }
+  //console.log(html); // just for testing if you wan to 
+  html += '</tr>'; 
+  html += '</table>'; 
+  html += '</body></html>';
+  //write html to the homepage.html file, it will overwrite the previous html on each run
+  fs.writeFile(path.join(__dirname + '/homepage.html'), html, err => {
+   if(err) {
+     console.error(err);
+     return; 
+   }
+}
 //when fed a search term and the array of names with urls, this should send back an array of names and urls that match
 var searchMemes = function (theData, searchParameter) { 
   var results;   
