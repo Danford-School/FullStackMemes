@@ -2,15 +2,29 @@
 //Authors: Stephanie Beagle and Danford Compton 
 
 const express = require('express'); 
-const requestHandler = require('./requestHandler');
-const path = require('path');
+const requestHandler = require('../jsAppFiles/requestHandler');
+const request = require('request');
 const fs = require('fs'); 
-const port = 3000; 
+//const port = 3000; 
 const app = express();
 const url = "http://alpha-meme-maker.herokuapp.com/1"; 
-const request = require('request'); 
+// I didn't include any of the options
+// in the next line that it may/may not need fyi 
+//const javaCaller = require('java-caller'); // node java caller 
+//const java = new javaCaller(/*Java Caller Options*/);
+//const path = require('path');
 
+//Java Caller -- I don't know if this will be useful
+// I copied the next line from the npm website  
+//const {status, stdout, stderr} = java.run(JAVA_ARGUMENTS,JAVA_CALLER_RUN_OPTIONS);
 
+function javaCaller() {
+  var javaClass = Packages.src.GetMemes();
+  // to be continued here 
+}
+
+// Server code, wasn't sure if we need it. 
+/*
 app.get('/', (req, res) => {
   requestHandler.make_API_call(url) //see requestHandler.js 
   .then(response => {
@@ -43,6 +57,7 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => console.log('App listening on port 3000'));
+*/
 
 //when fed a search term and the array of names with urls, this should send back an array of names and urls that match
 var searchMemes = function (theData, searchParameter) { 

@@ -1,4 +1,3 @@
-package src;
 public class Credentials {
 
     final String username = "Danfjord";

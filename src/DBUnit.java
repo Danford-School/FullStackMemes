@@ -1,7 +1,7 @@
 //Danford Compton and Stephanie Beagle
 //Full stack class
 //This is a helper struct to save user data for the backupDB.
-
+package src; 
 import java.util.ArrayList;
 
 public class DBUnit {
