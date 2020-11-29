@@ -1,5 +1,16 @@
-.grid{
-    display: flex; 
-    flex-direction: row; 
-    padding: 10px; 
+
+.grid {
+  display: flex; 
+  flex-direction: row;
+}
+
+.meme_box {
+  width: 200 px; 
+  height: 200 px; 
+  margin: auto; 
+}
+ .meme_box img {
+  width: 100%; 
+  height: auto; 
+  margin: auto; 
 }
