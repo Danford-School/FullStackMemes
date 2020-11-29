@@ -8,18 +8,20 @@ const fs = require('fs');
 //const port = 3000; 
 const app = express();
 const url = "http://alpha-meme-maker.herokuapp.com/1"; 
-// I didn't include any of the options
-// in the next line that it may/may not need fyi 
-//const javaCaller = require('java-caller'); // node java caller 
-//const java = new javaCaller(/*Java Caller Options*/);
+const javaCaller = require('java-caller'); // node java caller 
+const java = new javaCaller({
+  classPath:'',//path
+  mainClass:'',//has a specific formatting regarding the src package see documentation for java-caller
+  rootPath: '', //might not even be necessary 
+  minimumJavaVersion: 10 // or whatever idk this also isn't necessary
+});
 //const path = require('path');
 
-//Java Caller -- I don't know if this will be useful
 // I copied the next line from the npm website  
 //const {status, stdout, stderr} = java.run(JAVA_ARGUMENTS,JAVA_CALLER_RUN_OPTIONS);
 
-function javaCaller() {
-  var javaClass = Packages.src.GetMemes();
+function invokeJavaGet() {
+
   // to be continued here 
 }
 
