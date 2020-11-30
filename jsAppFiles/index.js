@@ -29,6 +29,14 @@ app.get('/', (req, res) => {
 
    })
 })
+
+// Edit page redirect 
+app.get('/edit/*', (req,res) => {
+  // todo: url parsing 
+  var imgurl; // need to retrieve imgurl from parsing code 
+  writeEditPage(imgurl); 
+  res.render('index1'); 
+})
 //app.use("/", router); // more Pug stuff 
 app.listen(port, () => console.log('App listening on port 3000'));
 
@@ -59,6 +67,18 @@ function writeHomepage(length, data) {
    }
   })
 } 
+
+// Write pug file for edit page 
+function writeEditPage(imgurl) {
+var pugtxt = "doctype html\nhtml\n\thead\n\t\tstyle\n\t\t\tinclude homepage.css\n\t\tscript.\n\t\t\tsrc=\"index.js\"\n\tbody\n\t\th1.title Meme Maker";
+//pugtxt += "\n\t\tdiv.container\n\t\t\img(src=\"" + imgurl + "\")";
+fs.writeFile(path.join(__dirname + '/views/index1.pug'), pugtxt, err => {
+   if(err) {
+     console.error(err);
+     return; 
+   }
+  })
+}
 
 //when fed a search term and the array of names with urls, this should send back an array of names and urls that match
 var searchMemes = function (theData, searchParameter) { 

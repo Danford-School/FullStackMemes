@@ -2,7 +2,7 @@
 //Authors: Stephanie Beagle and Danford Compton 
 
 const express = require('express'); 
-const requestHandler = require('./requestHandler');
+const requestHandler = require('../requestHandler');
 const path = require('path');
 const fs = require('fs'); 
 const port = 3000; 
