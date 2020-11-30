@@ -6,34 +6,46 @@ const requestHandler = require('./requestHandler');
 const request = require('request');
 const fs = require('fs'); 
 const path = require('path'); 
+const router = express.Router();
 const port = 3000; 
 const app = express();
 const url = "https://api.imgflip.com/get_memes";
 
-
-/* --- Java Caller Code ---- 
-const java = new javaCaller({
-  classPath:'',//path
-  mainClass:'',//has a specific formatting regarding the src package see documentation for java-caller
-  rootPath: '', //might not even be necessary 
-  minimumJavaVersion: 10 // or whatever idk this also isn't necessary
-});
-function invokeJavaGet() {
-
-  // to be continued here 
-}
+// Code for using Pug. It will set off some errors it's just copy/pasted. 
+/*
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views")); 
 */
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   requestHandler.make_API_call(url) //see requestHandler.js 
   .then(response => {
   // res.json(response); // this prints the raw json data to the browser if you need that for testing 
    var length = response.data.memes.length; //24
-   console.log(length); 
-   writeHomepage(length, response.data.memes); 
+   //console.log(length); 
+   writeHomepage(length, response.data.memes);
+
+  // This is for using pug 
+  // res.render("index"); 
+
+  // This stuff is for serving HTML with res.sendFile but so far it doesn't seem to work. 
+  // Theoretically it should display the HTML at localhost:3000  
+  // But the page stays blank despite it claiming it was sent 
+   var options = { 
+        root: path.join(__dirname) 
+    }; 
+   var filename = 'index.html'
+   res.setHeader("Content-Type", "text/html");
+   res.sendFile(filename, options, function(err) {
+     if (err) { 
+       next(err); 
+     } else { 
+       console.log('Sent:', filename); 
+     } 
+   }); 
   })
 })
-
+//app.use("/", router); // more Pug stuff 
 app.listen(port, () => console.log('App listening on port 3000'));
 
 // takes the array of data from the JSON body & the length of the array as arguments
@@ -51,7 +63,7 @@ function writeHomepage(length, data) {
   html += '</body></html>';
   //console.log(html); // just for testing if you want to 
   //write html to the homepage.html file, it will overwrite the previous html on each run
-  fs.writeFile(path.join(__dirname + '/homepage.html'), html, err => {
+  fs.writeFile(path.join(__dirname + '/index.html'), html, err => {
    if(err) {
      console.error(err);
      return; 
