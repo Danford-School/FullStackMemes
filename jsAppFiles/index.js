@@ -23,28 +23,11 @@ app.get('/', (req, res) => {
   .then(response => {
   // res.json(response); // this prints the raw json data to the browser if you need that for testing 
    var length = response.data.memes.length; //24
-   //console.log(length); 
    writeHomepage(length, response.data.memes);
-
   // This is for using pug 
-   res.render("index"); 
+   res.render('index'); 
 
-  // This stuff is for serving HTML with res.sendFile but so far it doesn't seem to work. 
-  // Theoretically it should display the HTML at localhost:3000  
-  // But the page stays blank despite it claiming it was sent 
-/*   var options = { 
-        root: path.join(__dirname) 
-    }; 
-   var filename = 'index.html'
-   res.setHeader("Content-Type", "text/html");
-   res.sendFile(filename, options, function(err) {
-     if (err) { 
-       next(err); 
-     } else { 
-       console.log('Sent:', filename); 
-     } 
-   }); */
-  })
+   })
 })
 //app.use("/", router); // more Pug stuff 
 app.listen(port, () => console.log('App listening on port 3000'));
