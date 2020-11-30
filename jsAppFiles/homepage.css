@@ -1,7 +1,10 @@
-
+.title {
+    color: midnightblue;
+}
 .grid {
   display: flex; 
   flex-direction: row;
+  margin: 20 px; 
 }
 
 .meme_box {

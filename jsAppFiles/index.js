@@ -17,7 +17,7 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views")); 
 */
 
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
   requestHandler.make_API_call(url) //see requestHandler.js 
   .then(response => {
   // res.json(response); // this prints the raw json data to the browser if you need that for testing 
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
   // This stuff is for serving HTML with res.sendFile but so far it doesn't seem to work. 
   // Theoretically it should display the HTML at localhost:3000  
   // But the page stays blank despite it claiming it was sent 
-   var options = { 
+/*   var options = { 
         root: path.join(__dirname) 
     }; 
    var filename = 'index.html'
@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
      } else { 
        console.log('Sent:', filename); 
      } 
-   }); 
+   }); */
   })
 })
 //app.use("/", router); // more Pug stuff 
@@ -51,19 +51,24 @@ app.listen(port, () => console.log('App listening on port 3000'));
 // takes the array of data from the JSON body & the length of the array as arguments
 // and writes homepage.html with the corresponding data  
 function writeHomepage(length, data) {
-  var html = '<!DOCTYPE html><html><head><link rel="stylesheet" href="homepage.css"><script>src="index.js"</script><meta charset="utf-8"/></head><body><table class = "grid" id = "table"><tr>'; //head of html file
+
+ // var html = '<!DOCTYPE html><html><head><link rel="stylesheet" href="homepage.css"><script>src="index.js"</script><meta charset="utf-8"/></head><body><table class = "grid" id = "table"><h1 class = "title">Meme Maker</h1><tr>'; //head of html file
+  var pugtxt = "doctype html\n\tlink(rel='stylesheet' href='homepage.css')script.\n\t\tsrc\"index.js\"\n\tmeta(charset='utf-8')\nh1.title Meme Maker\ntable#table.grid\n\ttbody\n\t\ttr";
   for(var i = 0; i < length; i++) {
     if(i%5 === 0 && i!=0){ // Makes a row of 5, replace 5 with anything you want 
-      html += '</tr><tr>'; 
+      //html += '</tr><tr>'; 
+      pugtxt += "\n\t\ttr"
     }
-    html += '<td class = "meme_box"><img src="' + data[i].url + '"></td>';
+    //html += '<td class = "meme_box"><img src="' + data[i].url + '"></td>';
+    pugtxt += "\n\t\t\ttd.meme_box"; 
+    pugtxt += "\n\t\t\t\timg(src='" + data[i].url + "')";
   }
-  html += '</tr>'; 
-  html += '</table>'; 
-  html += '</body></html>';
+  //html += '</tr>';
+  //html += '</table>'; 
+  //html += '</body></html>';
   //console.log(html); // just for testing if you want to 
-  //write html to the homepage.html file, it will overwrite the previous html on each run
-  fs.writeFile(path.join(__dirname + '/index.html'), html, err => {
+  //write pugtxt to the index.pug file, it will overwrite the previous html on each run
+  fs.writeFile(path.join(__dirname + '/index.pug'), pugtxt, err => {
    if(err) {
      console.error(err);
      return; 
