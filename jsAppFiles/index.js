@@ -12,8 +12,9 @@ const app = express();
 const url = "https://api.imgflip.com/get_memes";
 
 // Code for using Pug. It will set off some errors it's just copy/pasted. 
-/*
+
 app.set("view engine", "pug");
+/*
 app.set("views", path.join(__dirname, "views")); 
 */
 
@@ -26,7 +27,7 @@ app.get('/', (req, res) => {
    writeHomepage(length, response.data.memes);
 
   // This is for using pug 
-  // res.render("index"); 
+   res.render("index"); 
 
   // This stuff is for serving HTML with res.sendFile but so far it doesn't seem to work. 
   // Theoretically it should display the HTML at localhost:3000  
@@ -53,22 +54,22 @@ app.listen(port, () => console.log('App listening on port 3000'));
 function writeHomepage(length, data) {
 
  // var html = '<!DOCTYPE html><html><head><link rel="stylesheet" href="homepage.css"><script>src="index.js"</script><meta charset="utf-8"/></head><body><table class = "grid" id = "table"><h1 class = "title">Meme Maker</h1><tr>'; //head of html file
-  var pugtxt = "doctype html\n\tlink(rel='stylesheet' href='homepage.css')script.\n\t\tsrc\"index.js\"\n\tmeta(charset='utf-8')\nh1.title Meme Maker\ntable#table.grid\n\ttbody\n\t\ttr";
+  var pugtxt = "doctype html\nhtml\n\thead\n\t\tlink(rel='stylesheet' href='homepage.css')\n\t\tscript.\n\t\t\tsrc=\"index.js\"\n\tbody\n\t\th1.title Meme Maker\n\t\ttable#table.grid\n\t\t\ttbody\n\t\t\t\ttr";
   for(var i = 0; i < length; i++) {
     if(i%5 === 0 && i!=0){ // Makes a row of 5, replace 5 with anything you want 
       //html += '</tr><tr>'; 
-      pugtxt += "\n\t\ttr"
+      pugtxt += "\n\t\t\t\ttr"
     }
     //html += '<td class = "meme_box"><img src="' + data[i].url + '"></td>';
-    pugtxt += "\n\t\t\ttd.meme_box"; 
-    pugtxt += "\n\t\t\t\timg(src='" + data[i].url + "')";
+    pugtxt += "\n\t\t\t\t\ttd.meme_box"; 
+    pugtxt += "\n\t\t\t\t\t\timg(src='" + data[i].url + "')";
   }
   //html += '</tr>';
   //html += '</table>'; 
   //html += '</body></html>';
   //console.log(html); // just for testing if you want to 
   //write pugtxt to the index.pug file, it will overwrite the previous html on each run
-  fs.writeFile(path.join(__dirname + '/index.pug'), pugtxt, err => {
+  fs.writeFile(path.join(__dirname + 'views/index.pug'), pugtxt, err => {
    if(err) {
      console.error(err);
      return; 
