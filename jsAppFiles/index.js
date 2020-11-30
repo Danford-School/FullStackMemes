@@ -14,9 +14,7 @@ const url = "https://api.imgflip.com/get_memes";
 // Code for using Pug. It will set off some errors it's just copy/pasted. 
 
 app.set("view engine", "pug");
-/*
 app.set("views", path.join(__dirname, "views")); 
-*/
 
 app.get('/', (req, res) => {
   requestHandler.make_API_call(url) //see requestHandler.js 
@@ -26,12 +24,11 @@ app.get('/', (req, res) => {
    writeHomepage(length, response.data.memes);
   // This is for using pug 
    res.render('index'); 
-
    })
 })
 
 // Edit page redirect 
-app.get('/edit/*', (req,res) => {
+app.get('/edit/*/*', (req,res) => {
   // todo: url parsing 
   var imgurl; // need to retrieve imgurl from parsing code 
   writeEditPage(imgurl); 
@@ -45,9 +42,9 @@ app.listen(port, () => console.log('App listening on port 3000'));
 function writeHomepage(length, data) {
 
  // var html = '<!DOCTYPE html><html><head><link rel="stylesheet" href="homepage.css"><script>src="index.js"</script><meta charset="utf-8"/></head><body><table class = "grid" id = "table"><h1 class = "title">Meme Maker</h1><tr>'; //head of html file
-  var pugtxt = "doctype html\nhtml\n\thead\n\t\tlink(rel='stylesheet' href='homepage.css')\n\t\tscript.\n\t\t\tsrc=\"index.js\"\n\tbody\n\t\th1.title Meme Maker\n\t\ttable#table.grid\n\t\t\ttbody\n\t\t\t\ttr";
+  var pugtxt = "doctype html\nhtml\n\thead\n\t\tstyle\n\t\t\tinclude homepage.css\n\t\tscript.\n\t\t\tsrc=\"index.js\"\n\tbody\n\t\tdiv.header\n\t\t\th1.title Meme Maker\n\t\t\th2.text To get started, select an image from the gallery below!\n\t\ttable#table.grid\n\t\t\ttbody\n\t\t\t\ttr";
   for(var i = 0; i < length; i++) {
-    if(i%5 === 0 && i!=0){ // Makes a row of 5, replace 5 with anything you want 
+    if(i%4 === 0 && i!=0){ // Makes a row of 4, replace 4 with anything you want 
       //html += '</tr><tr>'; 
       pugtxt += "\n\t\t\t\ttr"
     }
