@@ -50,7 +50,7 @@ body {
  .meme_box img {
   display: flex;
   align-self: center;
-  border: solid #edbe57; 
+  border: solid midnightblue; 
   border-radius: 8px;
   width: 100%; 
   margin-left: auto; 
@@ -86,6 +86,9 @@ input {
   height: 3em;  
   margin: auto; 
   background-color: rgb(235, 222, 87, 0.5);
+  font-size: 18px; 
+  font-family: "Trebuchet MS", sans-serif;
+  padding: 3px; 
 }
 span {
   color: midnightblue; 
