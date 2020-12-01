@@ -201,3 +201,83 @@ function makePost(id, text0, text1) {
   //this actually does the thing. 
   request.post(postConfig, postSuccessHandler); 
 }
+
+//this is to retrieve saved memes from the database
+//it needs the username and password
+app.get('/dbsaved', async (req, res) => { 
+  try { 
+    const client = await pool.connect();
+    const result = await client.query(`SELECT saved_urls FROM userStorage WHERE user_name = ${req.name} AND user_password = ${req.password}`); 
+    const results = { 'results': (result) ? result.rows : null}; 
+   //below is for testing, we need to send the results somewhere
+    //res.render('pages/db', results); 
+    client.release();
+  } catch (err) { 
+    console.error(err);
+    res.send("Error " + err); 
+  }
+})
+
+//this is to add a user to the database
+//it needs the username and password
+app.get('/dbadduser', async (req, res) => { 
+  try { 
+    const client = await pool.connect();
+    const result = await client.query(`INSERT INTO userStorage(user_name, user_password) VALUES (${req.name}, ${req.password}`); 
+    const results = { 'results': (result) ? result.rows : null}; 
+   //below is for testing, we need to send the results somewhere
+    //res.render('pages/db', results); 
+    client.release();
+  } catch (err) { 
+    console.error(err);
+    res.send("Error " + err); 
+  }
+})
+
+//this is to add a meme in a user's saved memes. 
+//it needs the url of the created meme, username, and password
+app.get('/dbaddmeme', async (req, res) => { 
+  try { 
+    const client = await pool.connect();
+    const result = await client.query(`UPDATE userStorage SET saved_urls = ${req.url} || saved_urls WHERE user_name = ${req.name} AND user_password = ${req.password}`); 
+    const results = { 'results': (result) ? result.rows : null}; 
+   //below is for testing, we need to send the results somewhere
+    //res.render('pages/db', results); 
+    client.release();
+  } catch (err) { 
+    console.error(err);
+    res.send("Error " + err); 
+  }
+})
+
+//this will delete the user and their saved items from the database 
+//it needs the username and password
+app.get('/dbremoveuser', async (req, res) => { 
+  try { 
+    const client = await pool.connect();
+    const result = await client.query(`DELETE FROM userStorage WHERE user_name = ${req.name} AND user_password = ${req.password}`); 
+    const results = { 'results': (result) ? result.rows : null}; 
+   //below is for testing, we need to send the results somewhere
+    //res.render('pages/db', results); 
+    client.release();
+  } catch (err) { 
+    console.error(err);
+    res.send("Error " + err); 
+  }
+})
+
+//this will delete a saved meme from a user's collection
+//it needs the url of the created meme, username, and password
+app.get('/dbdeletememe', async (req, res) => { 
+  try { 
+    const client = await pool.connect();
+    const result = await client.query(`UPDATE userStorage SET saved_urls = array_remove(saved_urls, ${req.url}) WHERE user_name = ${req.name} AND user_password = ${req.password}`); 
+    const results = { 'results': (result) ? result.rows : null}; 
+   //below is for testing, we need to send the results somewhere
+    //res.render('pages/db', results); 
+    client.release();
+  } catch (err) { 
+    console.error(err);
+    res.send("Error " + err); 
+  }
+})
