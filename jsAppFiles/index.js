@@ -29,18 +29,21 @@ app.get('/', (req, res) => {
 })
 
 // Edit page redirect 
-app.get('/edit/*/*', (req,res) => {
+app.get('/makememe', (req,res) => {
   // todo: url parsing 
-  var imgurl; // need to retrieve imgurl from parsing code 
-  writeEditPage(imgurl); 
+  //var imgurl; // need to retrieve imgurl from parsing code 
+  //writeEditPage(imgurl); 
   res.render('index1'); 
 
-  // This is for using pug 
-   res.render("index"); 
 }) 
 //app.use("/", router); // more Pug stuff 
 app.listen(port, () => console.log('App listening on port 3000'));
 
+
+function writeEditPage(imgurl) {
+  var pugtxt = "doctype html\nhtml\n\thead\n\t\tstyle\n\t\t\tinclude homepage.css\n\t\tscript.\n\t\t\tsrc=\"index.js\"\n\tbody\n\t\tdiv.header\n\t\t\th1.title Edit\n\t\th2.text Customize captions for your selected image";
+  pugtxt += "\n\t\tdiv.container\n\t\t\timgsrc=\"https://i.imgflip.com/1c1uej.jpg\""; 
+}
 // takes the array of data from the JSON body & the length of the array as arguments
 // and writes homepage.html with the corresponding data  
 function writeHomepage(length, data) {

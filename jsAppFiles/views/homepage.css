@@ -61,3 +61,35 @@ body {
 img:hover {
   box-shadow: 0 0 2px 2px midnightblue;
 }
+
+.container {
+  width: 40%; 
+  margin: auto; 
+  border: solid midnightblue; 
+  padding: 10px; 
+}
+
+.container img {
+  margin: auto; 
+  width: 100%; 
+  align-self: center; 
+}
+.input {
+  width: 50%; 
+  margin: auto; 
+  margin-top: 2em; 
+  font-family: "Trebuchet MS", sans-serif;
+  align-self: center; 
+}
+input {
+  width: 100%; 
+  height: 3em;  
+  margin: auto; 
+  background-color: rgb(235, 222, 87, 0.5);
+}
+span {
+  color: midnightblue; 
+  font-weight: bold; 
+  text-transform: uppercase; 
+  font-size: 24px; 
+}
